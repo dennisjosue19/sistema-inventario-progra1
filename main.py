@@ -1,2 +1,11 @@
 print("Proyecto de programacion 1 - Sistema de inventario")
 print("=== Bienvenido a su sistema de inventario ===")
+
+print("==== MENU ====")
+print("1. Ingresar un videojuego: ")
+print("2. Sacar un videojuego: ")
+print("3. Buscar un videojuego: ")
+print("4. Mostrar inventario.")
+print("5. Obtener reporte de inventario.")
+print("6. Salir")
+opcion = int(input("Selecciona la accion a realizar: "))
