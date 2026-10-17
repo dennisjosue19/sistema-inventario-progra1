@@ -17,26 +17,28 @@ inventario = []
 while opcion !=6:
     if opcion == 1:
         codigo = random.randint(1000,9000)
-        nombre = input("Ingresa el nombre del videojuego: ")
-        plataforma = input("Ingresa la plataforma del videojuego: ")
+        nombre = input("Ingresa el nombre del videojuego: ").lower()
+        plataforma = input("Ingresa la plataforma del videojuego: ").lower()
         cantidad = int(input("Numero de unidades a ingresar: "))
-        costo = float(input("Ingresa el costo del videojuego: "))
+        precio = float(input("Ingresa el precio del videojuego: "))
         print("Videojuego guardado con exito!")
         nuevo_videojuego = {
             "codigo": codigo,
             "nombre": nombre,
             "plataforma": plataforma,
             "cantidad": cantidad,
-            "costo": costo
+            "precio": precio
         }
         inventario.append(nuevo_videojuego)
         opcion = int(input("Selecciona la accion a realizar: "))
 
     elif opcion == 2:
         print("Aun testing")
+        opcion = int(input("Selecciona la accion a realizar: "))
         pass
     elif opcion == 3:
         print("Aun testing")
+        opcion = int(input("Selecciona la accion a realizar: "))
         pass
     elif opcion == 4:
         print("Mostrando inventario disponible...")
@@ -45,6 +47,7 @@ while opcion !=6:
         opcion = int(input("Selecciona la accion a realizar: "))
     elif opcion == 5:
         print("Generando reporte...")
+        opcion = int(input("Selecciona la accion a realizar: "))
         pass
     elif opcion == 6:
         print("Saliendo de inventario... Hasta pronto!!!")
