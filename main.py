@@ -3,15 +3,6 @@ print("Proyecto de programacion 1 - Sistema de inventario")
 import random, json
 
 print("=== Bienvenido a su sistema de inventario ===")
-
-print("==== MENU ====")
-print("1. Ingresar un videojuego: ")
-print("2. Sacar un videojuego: ")
-print("3. Buscar un videojuego: ")
-print("4. Mostrar inventario.")
-print("5. Obtener reporte de inventario.")
-print("6. Salir")
-opcion = int(input("Selecciona la accion a realizar: "))
 inventario = []
 
 def generar_codigo(inventario):
@@ -25,7 +16,21 @@ def generar_codigo(inventario):
         if not repetido:
             return codigo
 
-while opcion !=6:
+while True:
+    print("==== MENU ====")
+    print("1. Ingresar un videojuego: ")
+    print("2. Sacar un videojuego: ")
+    print("3. Buscar un videojuego: ")
+    print("4. Mostrar inventario.")
+    print("5. Obtener reporte de inventario.")
+    print("6. Salir")
+
+    try:
+        opcion = int(input("Selecciona la accion a realizar: "))
+    except ValueError:
+        print("Ingresa una opcion valida")
+        continue
+
     if opcion == 1:
         codigo = generar_codigo(inventario)
         nombre = input("Ingresa el nombre del videojuego: ").strip().lower()
@@ -44,21 +49,16 @@ while opcion !=6:
 
     elif opcion == 2:
         print("Aun testing")
-        opcion = int(input("Selecciona la accion a realizar: "))
     elif opcion == 3:
         print("Aun testing")
-        opcion = int(input("Selecciona la accion a realizar: "))
     elif opcion == 4:
         print("Mostrando inventario disponible...")
         print(inventario)
-        print("Seleccione la accion a realizar:")
-        opcion = int(input("Selecciona la accion a realizar: "))
     elif opcion == 5:
         print("Generando reporte...")
-        opcion = int(input("Selecciona la accion a realizar: "))
+    elif opcion == 6:
+        print("Saliendo del inventario... Hasta pronto!!!!")
+        break
     else:
         print("Opcion no valida, por favor ingrese una opcion valida")
-        opcion = int(input("Selecciona la accion a realizar: "))
-if opcion == 6:
-    print("Saliendo... Hasta pronto!")
 
