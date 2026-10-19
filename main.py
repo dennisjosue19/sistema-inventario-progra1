@@ -4,6 +4,8 @@ import random, json
 
 print("=== Bienvenido a su sistema de inventario ===")
 inventario = []
+stock_minimo = 5
+stock_maximo = 15
 
 def generar_codigo(inventario):
     while True:
