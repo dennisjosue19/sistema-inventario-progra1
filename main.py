@@ -39,15 +39,24 @@ while True:
         plataforma = input("Ingresa la plataforma del videojuego: ").strip().lower()
         cantidad = int(input("Numero de unidades a ingresar: "))
         precio = float(input("Ingresa el precio del videojuego: "))
-        nuevo_videojuego = {
-            "codigo": codigo,
-            "nombre": nombre,
-            "plataforma": plataforma,
-            "cantidad": cantidad,
-            "precio": precio
-        }
-        inventario.append(nuevo_videojuego)
-        print("Videojuego guardado con exito!")
+
+        encontrado = False
+        for videojuego in inventario:
+            if nombre == videojuego["nombre"] and plataforma == videojuego["plataforma"]:
+                videojuego["cantidad"] = cantidad + videojuego["cantidad"]
+                encontrado = True
+                print("Videojuego existente. Cantidad actualizada con exito!")
+                break
+        if not encontrado:
+            nuevo_videojuego = {
+                "codigo": codigo,
+                "nombre": nombre,
+                "plataforma": plataforma,
+                "cantidad": cantidad,
+                "precio": precio
+            }
+            inventario.append(nuevo_videojuego)
+            print("Videojuego guardado con exito!")
 
     elif opcion == 2:
         print("Aun testing")
@@ -55,7 +64,17 @@ while True:
         print("Aun testing")
     elif opcion == 4:
         print("Mostrando inventario disponible...")
-        print(inventario)
+        if len(inventario) == 0:
+            print("Inventario no existente")
+        else:
+            for videojuego in inventario:
+                print("==========================================================")
+                print("Codigo: ", videojuego["codigo"])
+                print("Nombre: ", videojuego["nombre"])
+                print("Plataforma: ", videojuego["plataforma"])
+                print("Cantidad: ", videojuego["cantidad"])
+                print("Precio: ", videojuego["precio"])
+                print("==========================================================")
     elif opcion == 5:
         print("Generando reporte...")
     elif opcion == 6:
