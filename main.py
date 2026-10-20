@@ -6,6 +6,7 @@ print("=== Bienvenido a su sistema de inventario ===")
 inventario = []
 stock_minimo = 5
 stock_maximo = 15
+archivo = "inventario.json"
 
 def generar_codigo(inventario):
     while True:
