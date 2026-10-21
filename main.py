@@ -129,6 +129,3 @@ while True:
     elif opcion == 6:
         print("Saliendo del inventario... Hasta pronto!!!!")
         break
-    else:
-        print("Opcion no valida, por favor ingrese una opcion valida")
-
