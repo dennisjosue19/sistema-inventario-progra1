@@ -4,8 +4,8 @@ import random, json
 
 print("=== Bienvenido a su sistema de inventario ===")
 inventario = []
-stock_minimo = 5
-stock_maximo = 15
+stock_minimo = 0
+stock_maximo = 0
 
 def generar_codigo(inventario):
     while True:
@@ -34,11 +34,15 @@ while True:
         continue
 
     if opcion == 1:
-        codigo = generar_codigo(inventario)
-        nombre = input("Ingresa el nombre del videojuego: ").strip().lower()
-        plataforma = input("Ingresa la plataforma del videojuego: ").strip().lower()
-        cantidad = int(input("Numero de unidades a ingresar: "))
-        precio = float(input("Ingresa el precio del videojuego: "))
+        if stock_maximo > 2:
+            print("Inventario lleno!!!")
+            break
+        else:
+            codigo = generar_codigo(inventario)
+            nombre = input("Ingresa el nombre del videojuego: ").strip().lower()
+            plataforma = input("Ingresa la plataforma del videojuego: ").strip().lower()
+            cantidad = int(input("Numero de unidades a ingresar: "))
+            precio = float(input("Ingresa el precio del videojuego: "))
 
         encontrado = False
         for videojuego in inventario:
@@ -47,7 +51,9 @@ while True:
                 encontrado = True
                 print("Videojuego existente. Cantidad actualizada con exito!")
                 break
+
         if not encontrado:
+            stock_maximo += 1
             nuevo_videojuego = {
                 "codigo": codigo,
                 "nombre": nombre,
@@ -59,7 +65,15 @@ while True:
             print("Videojuego guardado con exito!")
 
     elif opcion == 2:
-        print("Aun testing")
+        print("¿Que videojuego desea sacar de inventario?")
+        codigo_retirar = int(input("Ingresa el codigo del videojuego: "))
+        encontrado = False
+        for videojuego in inventario:
+            if codigo_retirar == videojuego["codigo"]:
+                videojuego["cantidad"] = cantidad + videojuego["cantidad"]
+                encontrado = True
+                print("Videojuego existente. Cantidad actualizada con exito!")
+                break
     elif opcion == 3:
         print("Aun testing")
     elif opcion == 4:
