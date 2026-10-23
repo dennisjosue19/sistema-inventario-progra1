@@ -88,7 +88,10 @@ while True:
 
         #CON ESTE CONDICIONAL VALIDAMOS QUE EL CODIGO SEA UN VALOR ENTERO VALIDO
         while codigo_retirar <= 0:
-            codigo_retirar = int(input("Ingresa un codigo valido!"))
+            try:
+                codigo_retirar = int(input("Ingresa el codigo del videojuego a retirar"))
+            except:
+                print("Ingresa un codigo valido")
 
         cantidad_retirar = int(input("Numero de unidades a retirar: "))
 
@@ -129,7 +132,7 @@ while True:
                 print("Cantidad: ", videojuego["cantidad"])
                 print("Precio: ", videojuego["precio"])
                 print("==========================================================")
-            print(f"Dentro de su inventario tiene {stock_maximo} juegos almacenados")
+            print(f"Dentro de su inventario tiene {len(inventario)} juegos almacenados")
     elif opcion == 5:
         print("Generando reporte...")
     elif opcion == 6:
