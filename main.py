@@ -58,11 +58,11 @@ while True:
 
             nombre = input("Ingresa el nombre del videojuego: ").strip().lower()
             while nombre == "":
-                nombre = input("Nombre no valido, por favor ingresa el nombre del videojuego: ")
+                nombre = input("Nombre no valido, por favor ingresa el nombre del videojuego: ").strip().lower()
 
             plataforma = input("Ingresa la plataforma del videojuego: ").strip().lower()
             while plataforma == "":
-                plataforma = input("Nombre no valido, por favor ingresa el nombre del videojuego: ")
+                plataforma = input("Nombre no valido, por favor ingresa el nombre del videojuego: ").strip().lower()
 
             cantidad = validar_entero("Ingresa el numero de unidades a ingresar al inventario: ")
 
