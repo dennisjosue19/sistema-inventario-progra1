@@ -19,6 +19,17 @@ def generar_codigo(inventario):
         if not repetido:
             return codigo
 
+#FUNCION QUE NOS AYUDA A VALIDAR NUMEROS ENTEROS EN LOS PROCESOS DE ALTAS, BAJAS, PEDIDO DE CODIGOS
+def validar_entero(mensaje,minimo=1,maximo=100):
+    while True:
+        try:
+            valor=int(input(mensaje))
+            if valor >= minimo:
+                return valor
+            print(f"El valor debe ser mayor o igual que {minimo}")
+        except ValueError:
+            print(f"Ingresa un numero valido!!")
+
 #ESTE BUCLE MUESTRA EL MENU EN PANTALLA E IMPRIME UN MENSAJE DE ERROR SI EL USUARIO INGRESA UNA OPCION QUE NO SEA VALIDA
 while True:
     print("======== MENU =========")
@@ -35,6 +46,7 @@ while True:
         print("Ingresa una opcion valida")
         continue
 
+    #BLOQUE DONDE DECLARAMOS UNA ALTA DE INVENTARIO
     if opcion == 1:
         #CON ESTE CONDICIONAL VALIDAMOS QUE EL STOCK SE MANTENGA ABAJO DE 15 OBJETOS PARA PRACTICIDAD DEL EJERCICIO
         if len(inventario) > 2:
@@ -52,9 +64,7 @@ while True:
             while plataforma == "":
                 plataforma = input("Nombre no valido, por favor ingresa el nombre del videojuego: ")
 
-            cantidad = int(input("Numero de unidades a ingresar: "))
-            while cantidad <= 0:
-                cantidad = int(input("Ingrese una cantidad valida: "))
+            cantidad = validar_entero("Ingresa el numero de unidades a ingresar al inventario: ")
 
             precio = float(input("Ingresa el precio del videojuego: "))
             while precio <= 0:
@@ -82,22 +92,15 @@ while True:
             inventario.append(nuevo_videojuego)
             print("Videojuego guardado con exito!")
 
+    #EN ESTE BLOQUE DE CODIGO DECLARAMOS UNA BAJA DE INVENTARIO
     elif opcion == 2:
-        #EN ESTE BLOQUE DE CODIGO DECLARAMOS UNA BAJA DE INVENTARIO
-        codigo_retirar = int(input("Ingresa el codigo del videojuego que quieres retirar del inventario: "))
-
-        #CON ESTE CONDICIONAL VALIDAMOS QUE EL CODIGO SEA UN VALOR ENTERO VALIDO
-        while codigo_retirar <= 0:
-            try:
-                codigo_retirar = int(input("Ingresa el codigo del videojuego a retirar"))
-            except:
-                print("Ingresa un codigo valido")
-
-        cantidad_retirar = int(input("Numero de unidades a retirar: "))
+        codigo_retirar = validar_entero("Ingresa el codigo del videojuego a retirar del inventario: ")
 
         #AQUI VALIDAMOS SI EL CODIGO EXISTE, SINO IMPRIME UN MENSAJE EN PANTALLA QUE EL CODIGO NO EXISTE Y QUE EL USUARIO VALIDE SI ES CORRECTO
         if codigo_retirar != videojuego["codigo"]:
             print("El video juego no existe en el inventario, por favor verifique que el codigo sea correcto!")
+
+        cantidad_retirar = validar_entero("Ingresa el numero de unidades a retirar del inventario")
 
         #AQUI VALIDAMOS SI EL STOCK QUE TENEMOS ES SUFICIENTE PARA SATISFACER LA DEMANDA, SI SE VALIDA SE DESCUENTA EL STOCK DEL INVENTARIO, SINO
         #IMPRIME UN MENSAJE EN PANTALLA QUE NO HAY UNIDADES SUFICIENTES
