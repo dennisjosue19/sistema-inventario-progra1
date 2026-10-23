@@ -5,8 +5,6 @@ import random, json
 
 print("=== Bienvenido a su sistema de inventario ===")
 inventario = []
-stock_minimo = 0
-stock_maximo = 0
 
 #Funcion para generar un codigo al azar a nuevos videojuegos, el codigo recorre los videojuegos guardados en el la lista inventario, sino encuentra el videojuego
 #la funcion genera un codigo nuevo pero si lo encuentra se salta la instruccion
@@ -39,21 +37,25 @@ while True:
 
     if opcion == 1:
         #CON ESTE CONDICIONAL VALIDAMOS QUE EL STOCK SE MANTENGA ABAJO DE 15 OBJETOS PARA PRACTICIDAD DEL EJERCICIO
-        if stock_maximo > 2:
+        if len(inventario) > 2:
             print("Inventario lleno!!!")
         else:
             #En este bloque de codigo creamos un videojuego nuevo, asignando un codigo al azar si es que el juego no esta en stock
             #validando que los usuarios ingresen un nombre, plataforma, cantidad y precio validos al sistema
             codigo = generar_codigo(inventario)
+
             nombre = input("Ingresa el nombre del videojuego: ").strip().lower()
             while nombre == "":
                 nombre = input("Nombre no valido, por favor ingresa el nombre del videojuego: ")
+
             plataforma = input("Ingresa la plataforma del videojuego: ").strip().lower()
             while plataforma == "":
                 plataforma = input("Nombre no valido, por favor ingresa el nombre del videojuego: ")
+
             cantidad = int(input("Numero de unidades a ingresar: "))
             while cantidad <= 0:
                 cantidad = int(input("Ingrese una cantidad valida: "))
+
             precio = float(input("Ingresa el precio del videojuego: "))
             while precio <= 0:
                 precio = float(input("Ingrese un precio valido: "))
@@ -70,7 +72,6 @@ while True:
 
         if not encontrado:
             #SE CREA EL REGISTRO DE UN JUEGO NUEVO Y LA VARIABLE STOCK MAXIMO AUMENTA EN UNO POR CADA JUEGO NUEVO
-            stock_maximo += 1
             nuevo_videojuego = {
                 "codigo": codigo,
                 "nombre": nombre,
@@ -84,6 +85,11 @@ while True:
     elif opcion == 2:
         #EN ESTE BLOQUE DE CODIGO DECLARAMOS UNA BAJA DE INVENTARIO
         codigo_retirar = int(input("Ingresa el codigo del videojuego que quieres retirar del inventario: "))
+
+        #CON ESTE CONDICIONAL VALIDAMOS QUE EL CODIGO SEA UN VALOR ENTERO VALIDO
+        while codigo_retirar <= 0:
+            codigo_retirar = int(input("Ingresa un codigo valido!"))
+
         cantidad_retirar = int(input("Numero de unidades a retirar: "))
 
         #AQUI VALIDAMOS SI EL CODIGO EXISTE, SINO IMPRIME UN MENSAJE EN PANTALLA QUE EL CODIGO NO EXISTE Y QUE EL USUARIO VALIDE SI ES CORRECTO
