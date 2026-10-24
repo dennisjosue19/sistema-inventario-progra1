@@ -25,7 +25,7 @@ def generar_codigo(inventario):
             return codigo
 
 # FUNCION QUE NOS AYUDA A VALIDAR NUMEROS ENTEROS EN LOS PROCESOS DE ALTAS, BAJAS, PEDIDO DE CODIGOS
-def validar_entero(mensaje,minimo=1,maximo=100):
+def validar_entero(mensaje,minimo=1):
     while True:
         try:
             valor=int(input(mensaje))
@@ -47,14 +47,14 @@ def validar_precio(mensaje,minimo=1):
             print(f"Ingresa un numero valido!!")
 
 # FUNCION BUSQUEDA BINARIA
-def busqueda_binaria(valor):
+def busqueda_binaria(inventario):
     inicio = 0
     final = len(inventario) - 1
     while inicio <= final:
         centro = (inicio + final) // 2
-        if valor == inventario[centro]["codigo"]:
+        if inventario == inventario[centro]["codigo"]:
             return inventario[centro]
-        elif valor > inventario[centro]["codigo"]:
+        elif inventario > inventario[centro]["codigo"]:
             inicio = centro + 1
         else:
             final = centro - 1
