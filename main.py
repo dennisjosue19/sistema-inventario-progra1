@@ -140,14 +140,20 @@ while True:
         if not encontrado:
             print("Videojuego no existe en el inventario, por favor revisar el codigo")
 
+    # AQUI UTILIZAMOS LA BUSQUEDA BINARIA PARA LA BUSQUEDA DE LOS VIDEOJUEGOS MEDIANTE UN CODIGO UNICO
     elif opcion == 3:
+        # VALIDAMOS PRIMERO QUE HAYAN OBJETOS GUARDADOS SINO HAY IMPRIMIR UN MENSAJE
         if len(inventario) == 0:
             print("No hay videojuegos registrados")
+
+        # EN ESTE BLOQUE PRIMERO ORDENAMOS LA LISTA POR CODIGO YA QUE ES REQUISITO QUE ESTE ORDENADA PARA USAR
+        # LA BUSQUEDA BINARIA
         else:
             inventario.sort(key=lambda videojuego: videojuego["codigo"])
             codigo = validar_entero("Ingrese el codigo del videojuego: ")
             resultado = busqueda_binaria(codigo)
 
+            # SI EL PROGRAMA ENCUENTRA EL CODIGO IMPRIME LOS DATOS DEL VIDEOJUEGO
             if resultado:
                 print("====================================================")
                 print("Código:", resultado["codigo"])
@@ -157,6 +163,7 @@ while True:
                 print("Precio:", resultado["precio"])
                 print("====================================================")
 
+            # SINO ENCUENTRA NADA IMPRIME OTRO MENSAJE
             else:
                 print("No hay videojuegos registrados con ese codigo")
 
@@ -176,8 +183,22 @@ while True:
                 print("Precio: ", videojuego["precio"])
                 print("==========================================================")
             print(f"Dentro de su inventario tiene {len(inventario)} juegos almacenados")
+
+    # GENERACION DE REPORTE JSON
     elif opcion == 5:
-        print("Generando reporte...")
+        # VALIDAMOS QUE HAYAN OBJETOS GUARDADOS EN EL INVENTARIO
+        if len(inventario) == 0:
+            print("Inventario no existente")
+
+        # SI EL INVENTARIO EXISTE ENTONCES SE GENERA EL REPORTE
+        else:
+            print("Generando reporte...")
+            # SE CREA EL REPORTE
+            with open("inventario.json", "w") as archivo:
+                json.dump(inventario, archivo, indent=4)
+            print("Inventario generado exitosamente en inventario.json")
+
+    # EN ESTE BLOQUE SE SALE DEL INVENTARIO
     elif opcion == 6:
         print("Saliendo del inventario... Hasta pronto!!!!")
         break
