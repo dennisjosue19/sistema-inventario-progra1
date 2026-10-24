@@ -41,6 +41,7 @@ def validar_precio(mensaje,minimo=1):
         except ValueError:
             print(f"Ingresa un numero valido!!")
 
+# FUNCION BUSQUEDA BINARIA
 def busqueda_binaria(valor):
     inicio = 0
     final = len(inventario) - 1
@@ -97,7 +98,7 @@ while True:
         # EN CASO EL PRODUCTO NO SE ENCUENTRE EN EL INVENTARIO, SE PROCEDE A CREAR EL REGISTRO DEL VIDEOJUEGO PERO ANTES VALIDAMOS
         # SI TENEMOS ESPACIO EN EL INVENTARIO PARA SEGUIR AGREGANDO PRODUCTOS CON UN LEN(INVENTARIO)
         if not encontrado:
-            if len(inventario) > 2:
+            if len(inventario) > 3:
                 print("Inventario lleno!!!")
             else:
                 # AQUI SE CREA EL REGISTRO DEL VIDEOJUEGO
@@ -132,7 +133,7 @@ while True:
                     videojuego["cantidad"] = videojuego["cantidad"] - cantidad_retirar
                     print("Videojuego retirado de stock. Cantidad actualizada con exito!")
                     if videojuego["cantidad"] <= 5:
-                        print(f"Stock bajo en el videojuego: {videojuego['nombre']}, con una cantidad de {videojuego['cantidad']} unidad/es ")
+                        print(f"Stock bajo en el videojuego: {videojuego['nombre']}, en la plataforma: {videojuego['plataforma']} con una cantidad de {videojuego['cantidad']} unidad/es ")
                 break
 
         # TERCERA POSIBILIDAD, SI EL CODIGO NO EXISTE EL PROGRAMA DA UN MENSAJE DE ERROR.
@@ -140,8 +141,24 @@ while True:
             print("Videojuego no existe en el inventario, por favor revisar el codigo")
 
     elif opcion == 3:
-        print("Testing")
-        inventario.sort(key=lambda videojuego: videojuego["codigo"])
+        if len(inventario) == 0:
+            print("No hay videojuegos registrados")
+        else:
+            inventario.sort(key=lambda videojuego: videojuego["codigo"])
+            codigo = validar_entero("Ingrese el codigo del videojuego: ")
+            resultado = busqueda_binaria(codigo)
+
+            if resultado:
+                print("====================================================")
+                print("Código:", resultado["codigo"])
+                print("Nombre:", resultado["nombre"])
+                print("Plataforma:", resultado["plataforma"])
+                print("Cantidad:", resultado["cantidad"])
+                print("Precio:", resultado["precio"])
+                print("====================================================")
+
+            else:
+                print("No hay videojuegos registrados con ese codigo")
 
     elif opcion == 4:
         #ESTE BLOQUE MUESTRA EL INVENTARIO DISPONIBLE, SINO HAY NADA ALMACENADO IMPRIME UN MENSAJE EN PANTALLA QUE NO HAY NADA ALMACENADO
