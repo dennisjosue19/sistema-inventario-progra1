@@ -196,7 +196,7 @@ while True:
             # SE CREA EL REPORTE
             with open("inventario.json", "w") as archivo:
                 json.dump(inventario, archivo, indent=4)
-            print("Reporte generado exitosamente")
+            print(f"Reporte generado correctamente. Se exportaron {len(inventario)} videojuegos.")
             print("Archivo creado: inventario.json")
 
     # EN ESTE BLOQUE SE SALE DEL INVENTARIO
