@@ -41,6 +41,19 @@ def validar_precio(mensaje,minimo=1):
         except ValueError:
             print(f"Ingresa un numero valido!!")
 
+def busqueda_binaria(valor):
+    inicio = 0
+    final = len(inventario) - 1
+    while inicio <= final:
+        centro = (inicio + final) // 2
+        if valor == inventario[centro]["codigo"]:
+            return inventario[centro]
+        elif valor > inventario[centro]["codigo"]:
+            inicio = centro + 1
+        else:
+            final = centro - 1
+    return None
+
 # ESTE BUCLE MUESTRA EL MENU EN PANTALLA E IMPRIME UN MENSAJE DE ERROR SI EL USUARIO INGRESA UNA OPCION QUE NO SEA VALIDA
 while True:
     print("======== MENU =========")
@@ -128,6 +141,7 @@ while True:
 
     elif opcion == 3:
         print("Testing")
+        inventario.sort(key=lambda videojuego: videojuego["codigo"])
 
     elif opcion == 4:
         #ESTE BLOQUE MUESTRA EL INVENTARIO DISPONIBLE, SINO HAY NADA ALMACENADO IMPRIME UN MENSAJE EN PANTALLA QUE NO HAY NADA ALMACENADO
