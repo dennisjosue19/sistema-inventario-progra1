@@ -31,7 +31,7 @@ def validar_entero(mensaje,minimo=1,maximo=100):
             print(f"Ingresa un numero valido!!")
 
 # FUNCION QUE AL IGUAL QUE LA ANTERIOR, NOS AYUDA CON LA VALIDACION DEL PRECIO DEL VIDEOJUEGO
-def validad_precio(mensaje,minimo=1):
+def validar_precio(mensaje,minimo=1):
     while True:
         try:
             valor = float(input(mensaje))
@@ -70,7 +70,7 @@ while True:
 
         cantidad = validar_entero("Ingresa el numero de unidades a ingresar al inventario: ")
 
-        precio = validad_precio("Ingresa el precio del videojuego: ")
+        precio = validar_precio("Ingresa el precio del videojuego: ")
 
         # EN ESTE BLOQUE VALIDAMOS SI EL PRODUCTO YA EXISTE SOLAMENTE SE AGREGA LA CANTIDAD DE UNIDADES A INGRESAR
         # SIN TENER QUE CREAR UN CODIGO
@@ -127,7 +127,8 @@ while True:
             print("Videojuego no existe en el inventario, por favor revisar el codigo")
 
     elif opcion == 3:
-        print("Aun testing")
+        print("Testing")
+
     elif opcion == 4:
         #ESTE BLOQUE MUESTRA EL INVENTARIO DISPONIBLE, SINO HAY NADA ALMACENADO IMPRIME UN MENSAJE EN PANTALLA QUE NO HAY NADA ALMACENADO
         print("Mostrando inventario disponible...")
