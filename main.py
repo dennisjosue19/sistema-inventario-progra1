@@ -1,13 +1,13 @@
 print("Proyecto de programacion 1 - Sistema de inventario")
 
-#LIBRERIAS A UTILIZAR
+# LIBRERIAS A UTILIZAR
 import random, json
 
 print("=== Bienvenido a su sistema de inventario ===")
 inventario = []
 
-#Funcion para generar un codigo al azar a nuevos videojuegos, el codigo recorre los videojuegos guardados en el la lista inventario, sino encuentra el videojuego
-#la funcion genera un codigo nuevo pero si lo encuentra se salta la instruccion
+# Funcion para generar un codigo al azar a nuevos videojuegos, el codigo recorre los videojuegos guardados en el la lista inventario, sino encuentra el videojuego
+# la funcion genera un codigo nuevo pero si lo encuentra se salta la instruccion
 def generar_codigo(inventario):
     while True:
         codigo = random.randint(1000,9999)
@@ -19,7 +19,7 @@ def generar_codigo(inventario):
         if not repetido:
             return codigo
 
-#FUNCION QUE NOS AYUDA A VALIDAR NUMEROS ENTEROS EN LOS PROCESOS DE ALTAS, BAJAS, PEDIDO DE CODIGOS
+# FUNCION QUE NOS AYUDA A VALIDAR NUMEROS ENTEROS EN LOS PROCESOS DE ALTAS, BAJAS, PEDIDO DE CODIGOS
 def validar_entero(mensaje,minimo=1,maximo=100):
     while True:
         try:
@@ -30,6 +30,7 @@ def validar_entero(mensaje,minimo=1,maximo=100):
         except ValueError:
             print(f"Ingresa un numero valido!!")
 
+# FUNCION QUE AL IGUAL QUE LA ANTERIOR, NOS AYUDA CON LA VALIDACION DEL PRECIO DEL VIDEOJUEGO
 def validad_precio(mensaje,minimo=1):
     while True:
         try:
@@ -40,7 +41,7 @@ def validad_precio(mensaje,minimo=1):
         except ValueError:
             print(f"Ingresa un numero valido!!")
 
-#ESTE BUCLE MUESTRA EL MENU EN PANTALLA E IMPRIME UN MENSAJE DE ERROR SI EL USUARIO INGRESA UNA OPCION QUE NO SEA VALIDA
+# ESTE BUCLE MUESTRA EL MENU EN PANTALLA E IMPRIME UN MENSAJE DE ERROR SI EL USUARIO INGRESA UNA OPCION QUE NO SEA VALIDA
 while True:
     print("======== MENU =========")
     print("1. Ingresar un videojuego: ")
@@ -56,8 +57,9 @@ while True:
         print("Ingresa una opcion valida")
         continue
 
-    #BLOQUE DONDE DECLARAMOS UNA ALTA DE INVENTARIO
+    # BLOQUE DONDE DECLARAMOS UNA ALTA DE INVENTARIO
     if opcion == 1:
+        # SE PIDEN LOS DATOS DEL VIDEOJUEGO NOMBRE, PLATAFORMA, CANTIDAD DE UNIDADES A INGRESAR, PRECIO
         nombre = input("Ingresa el nombre del videojuego: ").strip().lower()
         while nombre == "":
             nombre = input("Nombre no valido, por favor ingresa el nombre del videojuego: ").strip().lower()
@@ -70,6 +72,8 @@ while True:
 
         precio = validad_precio("Ingresa el precio del videojuego: ")
 
+        # EN ESTE BLOQUE VALIDAMOS SI EL PRODUCTO YA EXISTE SOLAMENTE SE AGREGA LA CANTIDAD DE UNIDADES A INGRESAR
+        # SIN TENER QUE CREAR UN CODIGO
         encontrado = False
         for videojuego in inventario:
             if nombre == videojuego["nombre"] and plataforma == videojuego["plataforma"]:
@@ -77,12 +81,14 @@ while True:
                 encontrado = True
                 print("Videojuego existente. Cantidad actualizada con exito!")
                 break
+        # EN CASO EL PRODUCTO NO SE ENCUENTRE EN EL INVENTARIO, SE PROCEDE A CREAR EL REGISTRO DEL VIDEOJUEGO PERO ANTES VALIDAMOS
+        # SI TENEMOS ESPACIO EN EL INVENTARIO PARA SEGUIR AGREGANDO PRODUCTOS CON UN LEN(INVENTARIO)
         if not encontrado:
             if len(inventario) > 2:
                 print("Inventario lleno!!!")
             else:
+                # AQUI SE CREA EL REGISTRO DEL VIDEOJUEGO
                 codigo = generar_codigo(inventario)
-                #SE CREA EL REGISTRO DE UN JUEGO NUEVO Y LA VARIABLE STOCK MAXIMO AUMENTA EN UNO POR CADA JUEGO NUEVO
                 nuevo_videojuego = {
                     "codigo": codigo,
                     "nombre": nombre,
@@ -93,27 +99,33 @@ while True:
                 inventario.append(nuevo_videojuego)
                 print("Videojuego guardado con exito!")
 
+    # EN ESTE BLOQUE SE REALIZAN LAS BAJAS DE INVENTARIO
     elif opcion == 2:
+        # PREGUNTAMOS AL USUARIO EL CODIGO DEL VIDEOJUEGO QUE SE PUEDE ENCONTRAR USANDO LA OPCION 4 EN EL MENU PRINCIPAL
         codigo_retirar = validar_entero("Ingresa el codigo del videojuego a retirar del inventario: ")
+        encontrado = False
         for videojuego in inventario:
-            encontrado = False
+            # SI EL CODIGO EXISTE DENTRO DEL INVENTARIO VALIDAMOS 3 POSIBILIDADES:
             if codigo_retirar == videojuego["codigo"]:
                 encontrado = True
+                # PRIMERA POSIBILIDAD: SI LA CANTIDAD SOLICITADA ES MAYOR QUE LA QUE HAY EN STOCK, EL PROGRAMA DA UN MENSAJE QUE
+                # NO HAY STOCK SUFICIENTE PARA SUPLIR LA DEMANDA.
                 cantidad_retirar = validar_entero("Ingresa la cantidad de unidades a retirar del inventario: ")
                 if cantidad_retirar > videojuego["cantidad"]:
                     print("De momento no hay unidades suficientes para completar el retiro, intentelo mas tarde.")
+                # LA SEGUNDA POSIBILIDAD ES PROCEDER A LA BAJA DE PRODUCTO DEL INVENTARIO DE MANERA EXITOSA, Y SI CUMPLE LA
+                # REGLA DE NEGOCIO: AVISAR QUE HAY 5 O MENOS UNIDADES EN STOCK, IMPRIME UN MENSAJE QUE HAY STOCK BAJO.
                 else:
                     videojuego["cantidad"] = videojuego["cantidad"] - cantidad_retirar
                     print("Videojuego retirado de stock. Cantidad actualizada con exito!")
                     if videojuego["cantidad"] <= 5:
-                        print(
-                            f"Stock bajo en el videojuego: {videojuego['nombre']}, con una cantidad de {videojuego['cantidad']} unidad/es ")
-                        break
-            else:
-                print("Videojuego no existe en el inventario, por favor revisar el codigo")
-                codigo_retirar = validar_entero("Ingresa el codigo del videojuego a retirar del inventario: ")
-            #ESTE CONDICIONAL VALIDA UNA REGLA DE NEGOCIO QUE AL HABER MENOS DE 5 UNIDADES EL SISTEMA IMPRIME UN MENSAJE EN PANTALLA
-            #AVISANDO QUE HAY UN STOCK BAJO
+                        print(f"Stock bajo en el videojuego: {videojuego['nombre']}, con una cantidad de {videojuego['cantidad']} unidad/es ")
+                break
+
+        # TERCERA POSIBILIDAD, SI EL CODIGO NO EXISTE EL PROGRAMA DA UN MENSAJE DE ERROR.
+        if not encontrado:
+            print("Videojuego no existe en el inventario, por favor revisar el codigo")
+
     elif opcion == 3:
         print("Aun testing")
     elif opcion == 4:
