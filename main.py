@@ -4,7 +4,12 @@ print("Proyecto de programacion 1 - Sistema de inventario")
 import random, json
 
 print("=== Bienvenido a su sistema de inventario ===")
-inventario = []
+# PARA LA PERSISTENCIA CARGAMOS EL JSON AL PRINCIPIO DEL PROGRAMA
+try:
+    with open("inventario.json", "r") as archivo:
+        inventario = json.load(archivo)
+except FileNotFoundError:
+    inventario = []
 
 # Funcion para generar un codigo al azar a nuevos videojuegos, el codigo recorre los videojuegos guardados en el la lista inventario, sino encuentra el videojuego
 # la funcion genera un codigo nuevo pero si lo encuentra se salta la instruccion
