@@ -103,7 +103,7 @@ while True:
         # EN CASO EL PRODUCTO NO SE ENCUENTRE EN EL INVENTARIO, SE PROCEDE A CREAR EL REGISTRO DEL VIDEOJUEGO PERO ANTES VALIDAMOS
         # SI TENEMOS ESPACIO EN EL INVENTARIO PARA SEGUIR AGREGANDO PRODUCTOS CON UN LEN(INVENTARIO)
         if not encontrado:
-            if len(inventario) > 3:
+            if len(inventario) > 14:
                 print("Inventario lleno!!!")
             else:
                 # AQUI SE CREA EL REGISTRO DEL VIDEOJUEGO
