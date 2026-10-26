@@ -18,7 +18,7 @@ def generar_codigo(inventario):
         codigo = random.randint(1000,9999)
         repetido = False
         for videojuego in inventario:
-            if videojuego["codigo"] == codigo:
+            if videojuego['codigo'] == codigo:
                 repetido = True
                 break
         if not repetido:
@@ -47,14 +47,14 @@ def validar_precio(mensaje,minimo=1):
             print(f"Ingresa un numero valido!!")
 
 # FUNCION BUSQUEDA BINARIA
-def busqueda_binaria(inventario):
+def busqueda_binaria(inventario, codigo):
     inicio = 0
     final = len(inventario) - 1
     while inicio <= final:
         centro = (inicio + final) // 2
-        if inventario == inventario[centro]["codigo"]:
+        if codigo == inventario[centro]['codigo']:
             return inventario[centro]
-        elif inventario > inventario[centro]["codigo"]:
+        elif codigo > inventario[centro]['codigo']:
             inicio = centro + 1
         else:
             final = centro - 1
@@ -85,7 +85,7 @@ while True:
 
         plataforma = input("Ingresa la plataforma del videojuego: ").strip().lower()
         while plataforma == "":
-            plataforma = input("Nombre no valido, por favor ingresa el nombre del videojuego: ").strip().lower()
+            plataforma = input("Nombre no valido, por favor ingresa el nombre de la plataforma: ").strip().lower()
 
         cantidad = validar_entero("Ingresa el numero de unidades a ingresar al inventario: ")
 
@@ -156,7 +156,7 @@ while True:
         else:
             inventario.sort(key=lambda videojuego: videojuego["codigo"])
             codigo = validar_entero("Ingrese el codigo del videojuego: ")
-            resultado = busqueda_binaria(codigo)
+            resultado = busqueda_binaria(inventario, codigo)
 
             # SI EL PROGRAMA ENCUENTRA EL CODIGO IMPRIME LOS DATOS DEL VIDEOJUEGO
             if resultado:
